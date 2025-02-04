@@ -91,25 +91,40 @@ public class Tienda {
     }
 
     private static void menuPedidos() {
-        int opcion;
-        do {
-            System.out.println("\n--- GESTIÓN PEDIDOS ---");
-            System.out.println("1. Crear Pedido");
-            System.out.println("2. Listar Pedidos por Importe");
-            System.out.println("3. Listar Pedidos por Fecha");
-            System.out.println("0. Volver");
-            System.out.print("Elige una opción: ");
-            opcion = Integer.parseInt(scanner.nextLine());
+    int opcion;
+    do {
+        System.out.println("\n--- GESTIÓN PEDIDOS ---");
+        System.out.println("1. Crear Pedido");
+        System.out.println("2. Listar Pedidos por Importe");
+        System.out.println("3. Listar Pedidos por Fecha");
+        System.out.println("4. Listar Pedidos entre Fechas");
+        System.out.println("5. Agrupar Pedidos por Cliente");
+        System.out.println("6. Exportar Pedidos a CSV");
+        System.out.println("7. Mostrar Total de Ventas");
+        System.out.println("8. Modificar Pedido");
+        System.out.println("9. Cancelar Pedido");
+        System.out.println("10. Aplicar Descuento a Pedido");
+        System.out.println("0. Volver");
+        System.out.print("Elige una opción: ");
+        opcion = Integer.parseInt(scanner.nextLine());
 
-            switch (opcion) {
-                case 1 -> gestorPedidos.agregarPedido();
-                case 2 -> gestorPedidos.listarPedidosPorImporte();
-                case 3 -> gestorPedidos.listarPedidosPorFecha();
-                case 0 -> System.out.println("Volviendo al menú principal...");
-                default -> System.out.println("Opción no válida");
-            }
-        } while (opcion != 0);
-    }
+        switch (opcion) {
+            case 1 -> gestorPedidos.agregarPedido();
+            case 2 -> gestorPedidos.listarPedidosPorImporte();
+            case 3 -> gestorPedidos.listarPedidosPorFecha();
+            case 4 -> gestorPedidos.listarPedidosEntreFechas();
+            case 5 -> gestorPedidos.agruparPedidosPorCliente();
+            case 6 -> gestorPedidos.exportarPedidosCSV();
+            case 7 -> System.out.println("Total de Ventas: " + gestorPedidos.totalVentas() + "€");
+            case 8 -> gestorPedidos.modificarPedido();
+            case 9 -> gestorPedidos.cancelarPedido();
+            case 10 -> gestorPedidos.aplicarDescuentoAPedido();
+            case 0 -> System.out.println("Volviendo al menú principal...");
+            default -> System.out.println("Opción no válida");
+        }
+    } while (opcion != 0);
+}
+
 
     private static void guardarDatos() {
         Persistencia.guardar("clientes.dat", gestorClientes);
