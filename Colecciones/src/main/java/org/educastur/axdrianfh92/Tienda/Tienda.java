@@ -16,12 +16,29 @@ import java.util.Scanner;
  
 public class Tienda {
     // Instancias globales de los gestores.
-    private static final GestorClientes gestorClientes = new GestorClientes();
-    private static final GestorArticulos gestorArticulos = new GestorArticulos();
-    private static final GestorPedidos gestorPedidos = new GestorPedidos();
+    private static GestorClientes gestorClientes = new GestorClientes();
+    private static GestorArticulos gestorArticulos = new GestorArticulos();
+    private static GestorPedidos gestorPedidos = new GestorPedidos();
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+        
+              // Intentar cargar los gestores desde archivos
+        gestorClientes = (GestorClientes) Persistencia.cargar("clientes.dat");
+        if (gestorClientes == null) {
+            gestorClientes = new GestorClientes();
+        }
+        
+        gestorArticulos = (GestorArticulos) Persistencia.cargar("articulos.dat");
+        if (gestorArticulos == null) {
+            gestorArticulos = new GestorArticulos();
+        }
+        
+        gestorPedidos = (GestorPedidos) Persistencia.cargar("pedidos.dat");
+        if (gestorPedidos == null) {
+            gestorPedidos = new GestorPedidos();
+        }
+        
         int opcion;
         do {
             System.out.println("\n--- GESTIÓN TIENDA ---");
@@ -125,13 +142,14 @@ public class Tienda {
     } while (opcion != 0);
 }
 
-
+    
     private static void guardarDatos() {
         Persistencia.guardar("clientes.dat", gestorClientes);
         Persistencia.guardar("articulos.dat", gestorArticulos);
         Persistencia.guardar("pedidos.dat", gestorPedidos);
         System.out.println("Datos guardados correctamente.");
     }
+    
     
     
 }
